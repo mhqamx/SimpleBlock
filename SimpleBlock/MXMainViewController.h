@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  MXMainViewController.h
 //  SimpleBlock
 //
 //  Created by YISHANG on 16/4/1.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface MXMainViewController : UIViewController
 
 @end
-
