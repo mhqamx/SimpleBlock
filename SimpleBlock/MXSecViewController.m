@@ -37,7 +37,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     [self configUI];
+    
+//    [self justaTestMethod];
 }
 
 #pragma mark - Private Methods
@@ -65,14 +68,37 @@
     
 }
 
+- (void)justaTestMethod {
+    NSLog(@"-----%s", __func__);
+}
+
 - (void)PopAction {
-//    self.text_block(self.textField.text);
     int radomNo = arc4random()%255;
+//    self.text_block(self.textField.text);
 //    self.color_block(kColorWithRGB(radomNo, radomNo, radomNo));
 //    self.image_block([UIImage imageNamed:@"57"]);
+    
+    [self.kdelegate sendMessagewithString:self.textField.text];
+    
+    if ([self.kdelegate respondsToSelector:@selector(sendMessagewithString:)]) {
+        NSLog(@"-------- 实现了协议方法");
+    }
+    
+    // respondsToSelector:@selector(viewDidLoad)
+    // 判断对象是否包含SEL方法 返回值类型BOOL
+    if ([self respondsToSelector:@selector(viewDidLoad)]) {
+        // performSelector:@selector(performMethod) withObject:nil afterDelay:0.0
+        // perform 执行方法
+        [self performSelector:@selector(performMethod) withObject:nil afterDelay:0.0];
+    }
     
     self.trans_block(self.textField.text, kColorWithRGB(radomNo, radomNo, radomNo), [UIImage imageNamed:@"57"]);
     
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+- (void)performMethod {
+    NSLog(@"1111111------%s", __func__);
+}
+
 @end

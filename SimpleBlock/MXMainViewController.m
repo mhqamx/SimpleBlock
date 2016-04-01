@@ -9,7 +9,7 @@
 #import "MXMainViewController.h"
 #import "MXSecViewController.h"
 #import <Masonry.h>
-@interface MXMainViewController ()
+@interface MXMainViewController ()<sendMessageDelegate>
 /**
  *  接收颜色的label
  */
@@ -107,6 +107,9 @@
 
 - (void)PushAction {
     MXSecViewController *secVC = [[MXSecViewController alloc] init];
+    
+    secVC.kdelegate = self;
+    
     /*
     [secVC setText_block:^(NSString *newStr){
         self.text_label.text = newStr;
@@ -127,5 +130,9 @@
     }];
     
     [self.navigationController pushViewController:secVC animated:YES];
+}
+
+- (void)sendMessagewithString:(NSString *)newString {
+    self.title = newString;
 }
 @end
