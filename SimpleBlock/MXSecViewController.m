@@ -84,6 +84,9 @@
         NSLog(@"-------- 实现了协议方法");
     }
     
+    NSAssert(self.view != nil, @"系统断言");
+    
+    
     // respondsToSelector:@selector(viewDidLoad)
     // 判断对象是否包含SEL方法 返回值类型BOOL
     if ([self respondsToSelector:@selector(viewDidLoad)]) {
