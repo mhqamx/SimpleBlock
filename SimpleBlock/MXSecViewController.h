@@ -18,6 +18,8 @@ typedef void(^TransBlock)(NSString *newStr, UIColor *newColor, UIImage *newImage
 
 - (void)sendMessagewithString:(NSString *)newString;
 - (void)callBackMethod;
+// 测试对象是否会响应方法
+- (void)test;
 
 @end
 

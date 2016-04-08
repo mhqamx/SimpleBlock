@@ -79,21 +79,21 @@
 //    self.image_block([UIImage imageNamed:@"57"]);
     
     [self.kdelegate sendMessagewithString:self.textField.text];
-    
+    [self.kdelegate test];
     if ([self.kdelegate respondsToSelector:@selector(sendMessagewithString:)]) {
         NSLog(@"-------- 实现了协议方法");
     }
     
     NSAssert(self.view != nil, @"系统断言");
     
-    
-    // respondsToSelector:@selector(viewDidLoad)
-    // 判断对象是否包含SEL方法 返回值类型BOOL
-    if ([self respondsToSelector:@selector(viewDidLoad)]) {
+    // respondsToSelector:@selector()
+    // 判断对象是否响应了@SEL方法 返回值类型BOOL
+    if ([self.kdelegate respondsToSelector:@selector(test)]) {
         // performSelector:@selector(performMethod) withObject:nil afterDelay:0.0
         // perform 执行方法
         [self performSelector:@selector(performMethod) withObject:nil afterDelay:0.0];
     }
+
     
     self.trans_block(self.textField.text, kColorWithRGB(radomNo, radomNo, radomNo), [UIImage imageNamed:@"57"]);
     

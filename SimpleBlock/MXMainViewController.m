@@ -129,10 +129,21 @@
         self.imageView.image = newImage;
     }];
     
+    if (![self conformsToProtocol:@protocol(sendMessageDelegate)]) {
+        NSLog(@"conformsToProtocol");
+        NSAssert(![self conformsToProtocol:@protocol(sendMessageDelegate)], @"没有实现协议方法");
+    }
+    
     [self.navigationController pushViewController:secVC animated:YES];
 }
 
 - (void)sendMessagewithString:(NSString *)newString {
     self.title = newString;
+}
+
+
+
+- (void)test {
+    NSLog(@"%s", __func__);
 }
 @end
