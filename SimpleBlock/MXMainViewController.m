@@ -6,10 +6,15 @@
 //  Copyright © 2016年 YISHANG. All rights reserved.
 //
 
+#define WIDTH [UIScreen mainScreen].bounds.size.width
+#define HEIGHT [UIScreen mainScreen].bounds.size.height
+#define SCREEN_SIZE [UIScreen mainScreen].bounds
+
+
 #import "MXMainViewController.h"
 #import "MXSecViewController.h"
 #import <Masonry.h>
-@interface MXMainViewController ()<sendMessageDelegate>
+@interface MXMainViewController ()<sendMessageDelegate, UIScrollViewDelegate>
 /**
  *  接收颜色的label
  */
@@ -24,6 +29,16 @@
  *  接收文字
  */
 @property (nonatomic, strong) UILabel  *text_label;
+
+/**
+ *  承载ScrollView的View
+ */
+@property (nonatomic, strong) UIView  *contentView;
+
+/**
+ *  显示全屏使用Window
+ */
+@property (nonatomic, strong) UIWindow  *window;
 
 
 @end
@@ -54,6 +69,23 @@
     return _imageView;
 }
 
+- (UIView *)contentView {
+    if (!_contentView) {
+        _contentView = [[UIView alloc] initWithFrame:SCREEN_SIZE];
+        _contentView.backgroundColor = [UIColor clearColor];
+    }
+    return _contentView;
+}
+
+- (UIWindow *)window {
+    if (!_window) {
+        _window = [[UIWindow alloc] initWithFrame:SCREEN_SIZE];
+        _window.windowLevel = UIWindowLevelStatusBar + 1000;
+        [_window makeKeyAndVisible];
+    }
+    return _window;
+}
+
 #pragma mark - Life Cycle
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -63,9 +95,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configUI];
+    [self configScrollView];
 }
 
 #pragma mark - Private Methods
+- (void)touchAction1 {
+    NSLog(@"%s", __func__);
+}
+
+
+- (void)touchAction2 {
+    NSLog(@"%s", __func__);
+}
+
+
 - (void)configUI {
     [self.view addSubview:self.text_label];
     [self.view addSubview:self.color_label];
@@ -105,6 +148,37 @@
     }];
 }
 
+- (void)configScrollView {
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    scrollView.showsHorizontalScrollIndicator = NO;
+    scrollView.showsVerticalScrollIndicator = NO;
+    scrollView.contentSize = CGSizeMake(WIDTH * 3, HEIGHT);
+    scrollView.backgroundColor = [UIColor clearColor];
+    scrollView.delegate = self;
+    scrollView.tag = 10001;
+    scrollView.pagingEnabled = YES;
+    [self.contentView addSubview:scrollView];
+    
+    UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchAction1)];
+    
+    UIImageView *view1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
+    view1.userInteractionEnabled = YES;
+    [view1 addGestureRecognizer:tap1];
+    view1.backgroundColor = [UIColor cyanColor];
+    [scrollView addSubview:view1];
+    
+    UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchAction2)];
+    
+    UIImageView *view2 = [[UIImageView alloc] initWithFrame:CGRectMake(WIDTH, 0, WIDTH, HEIGHT)];
+    view2.userInteractionEnabled = YES;
+    [view2 addGestureRecognizer:tap2];
+    view2.backgroundColor = [UIColor yellowColor];
+    [scrollView addSubview:view2];
+
+    [self.window addSubview:self.contentView];
+    [self.contentView addSubview:scrollView];
+}
+
 - (void)PushAction {
     MXSecViewController *secVC = [[MXSecViewController alloc] init];
     
@@ -141,9 +215,33 @@
     self.title = newString;
 }
 
-
-
 - (void)test {
     NSLog(@"%s", __func__);
 }
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if (scrollView.tag != 10001) {
+        return;
+    }
+    
+//    double page = scrollView.contentOffset.x / scrollView.frame.size.width;
+//    self.pageControl.currentPage = (int)(page + 0.5);
+    
+    NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
+    
+    CGFloat alpha = 2 - scrollView.contentOffset.x / scrollView.frame.size.width;
+    scrollView.alpha = alpha;
+//    self.pageControl.alpha = alpha;
+    self.view.alpha = 1 - alpha;
+    NSLog(@"alpha ----- %f", alpha);
+    if (scrollView.contentOffset.x > WIDTH * 1.99) {
+        [self.contentView removeFromSuperview];
+        self.window = nil;
+    }
+    else {
+        NSLog(@"%s", __func__);
+    }
+
+}
+
 @end
