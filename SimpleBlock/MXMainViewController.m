@@ -231,7 +231,6 @@
     
     CGFloat alpha = 2 - scrollView.contentOffset.x / scrollView.frame.size.width;
     scrollView.alpha = alpha;
-//    self.pageControl.alpha = alpha;
     self.view.alpha = 1 - alpha;
     NSLog(@"alpha ----- %f", alpha);
     if (scrollView.contentOffset.x > WIDTH * 1.99) {
