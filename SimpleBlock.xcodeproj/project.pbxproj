@@ -39,6 +39,7 @@
 
 /* Begin PBXFileReference section */
 		051F6C0B1CAE41BF0053A3C9 /* 57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 57.png; sourceTree = "<group>"; };
+		05AAD3701CBE5D91003C2E55 /* MXKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXKit.h; sourceTree = "<group>"; };
 		05EC1EC61CAE0C1C00EAAF3A /* SimpleBlock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleBlock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		05EC1ECA1CAE0C1C00EAAF3A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		05EC1ECC1CAE0C1C00EAAF3A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -113,6 +114,7 @@
 		05EC1EC81CAE0C1C00EAAF3A /* SimpleBlock */ = {
 			isa = PBXGroup;
 			children = (
+				05AAD3701CBE5D91003C2E55 /* MXKit.h */,
 				051F6C0B1CAE41BF0053A3C9 /* 57.png */,
 				05EC1ECC1CAE0C1C00EAAF3A /* AppDelegate.h */,
 				05EC1ECD1CAE0C1C00EAAF3A /* AppDelegate.m */,
