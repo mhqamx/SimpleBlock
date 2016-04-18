@@ -10,10 +10,15 @@
 #define HEIGHT [UIScreen mainScreen].bounds.size.height
 #define SCREEN_SIZE [UIScreen mainScreen].bounds
 
+/**
+ *  通过修改ADCount来修改初始页数
+ */
+#define ADCount 4
 
 #import "MXMainViewController.h"
 #import "MXSecViewController.h"
 #import <Masonry.h>
+#import "MXADViewController.h"
 @interface MXMainViewController ()<sendMessageDelegate, UIScrollViewDelegate>
 /**
  *  接收颜色的label
@@ -40,6 +45,10 @@
  */
 @property (nonatomic, strong) UIWindow  *window;
 
+/**
+ *  显示广告页的Window
+ */
+@property (nonatomic, strong) UIWindow  *ADwindow;
 
 @end
 
@@ -86,19 +95,48 @@
     return _window;
 }
 
+- (UIWindow *)ADwindow {
+    if (!_ADwindow) {
+        _ADwindow = [[UIWindow alloc] initWithFrame:SCREEN_SIZE];
+        [_ADwindow makeKeyAndVisible];
+    }
+    return _ADwindow;
+}
+
 #pragma mark - Life Cycle
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.view.backgroundColor = [UIColor whiteColor];
+    
+    /**
+     *  添加观察者
+     *
+     *  @param disMissWindow 将window制空的方法
+     */
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disMissWindow) name:@"WindowDismiss" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disMissWindow) name:UIWindowDidBecomeHiddenNotification object:_ADwindow];;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self configUI];
     [self configScrollView];
+    MXADViewController *adVC = [[MXADViewController alloc] init];
+    [self.ADwindow setRootViewController:adVC];
 }
 
+
+
 #pragma mark - Private Methods
+/**
+ *  要将window的rootController和window本身一起制空 不然rootController成为野指针 继续留在界面上
+ */
+- (void)disMissWindow {
+    self.ADwindow.rootViewController = nil;
+    self.ADwindow = nil;
+}
+
+/*
 - (void)touchAction1 {
     NSLog(@"%s", __func__);
 }
@@ -107,7 +145,7 @@
 - (void)touchAction2 {
     NSLog(@"%s", __func__);
 }
-
+*/
 
 - (void)configUI {
     [self.view addSubview:self.text_label];
@@ -152,13 +190,14 @@
     UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     scrollView.showsHorizontalScrollIndicator = NO;
     scrollView.showsVerticalScrollIndicator = NO;
-    scrollView.contentSize = CGSizeMake(WIDTH * 3, HEIGHT);
+    scrollView.contentSize = CGSizeMake(WIDTH * (ADCount + 1), HEIGHT);
     scrollView.backgroundColor = [UIColor clearColor];
     scrollView.delegate = self;
     scrollView.tag = 10001;
     scrollView.pagingEnabled = YES;
     [self.contentView addSubview:scrollView];
     
+    /*
     UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(touchAction1)];
     
     UIImageView *view1 = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, HEIGHT)];
@@ -174,9 +213,33 @@
     [view2 addGestureRecognizer:tap2];
     view2.backgroundColor = [UIColor yellowColor];
     [scrollView addSubview:view2];
-
+     */
+    
+    /**
+     *  根据需求 后台返回不定量的图片 不能写死
+     */
+    
+    for (int i = 0; i < ADCount; i++) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(i * WIDTH, 0, WIDTH, HEIGHT)];
+        view.backgroundColor = [UIColor colorWithRed:random()%255 / 255.0 green:random()%255 / 255.0 blue:random()%255 / 255.0 alpha:1];
+        [scrollView addSubview:view];
+        
+        UIControl *control = [[UIControl alloc] initWithFrame:view.bounds];
+        control.backgroundColor = [UIColor clearColor];
+        control.tag = 10000 + i;
+        [control addTarget:self action:@selector(taponClick:) forControlEvents:(UIControlEventTouchUpInside)];
+        [view addSubview:control];
+    }
     [self.window addSubview:self.contentView];
     [self.contentView addSubview:scrollView];
+}
+
+- (void)taponClick:(UIControl *)control {
+    for (int i = 0; i < ADCount; i++) {
+        if (control.tag == 10000 + i) {
+            NSLog(@"index  ==== %d", i);
+        }
+    }
 }
 
 - (void)PushAction {
@@ -229,11 +292,11 @@
     
     NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
     
-    CGFloat alpha = 2 - scrollView.contentOffset.x / scrollView.frame.size.width;
+    CGFloat alpha = ADCount - scrollView.contentOffset.x / scrollView.frame.size.width;
     scrollView.alpha = alpha;
     self.view.alpha = 1 - alpha;
     NSLog(@"alpha ----- %f", alpha);
-    if (scrollView.contentOffset.x > WIDTH * 1.99) {
+    if (scrollView.contentOffset.x > WIDTH * (ADCount - 0.01)) {
         [self.contentView removeFromSuperview];
         self.window = nil;
     }
