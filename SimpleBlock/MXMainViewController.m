@@ -19,6 +19,7 @@
 #import "MXSecViewController.h"
 #import <Masonry.h>
 #import "MXADViewController.h"
+#import "MXRootExampleVC.h"
 @interface MXMainViewController ()<sendMessageDelegate, UIScrollViewDelegate>
 /**
  *  接收颜色的label
@@ -125,8 +126,6 @@
     [self.ADwindow setRootViewController:adVC];
 }
 
-
-
 #pragma mark - Private Methods
 /**
  *  要将window的rootController和window本身一起制空 不然rootController成为野指针 继续留在界面上
@@ -157,6 +156,13 @@
     [btn addTarget:self action:@selector(PushAction) forControlEvents:(UIControlEventTouchUpInside)];
     [self.view addSubview:btn];
     
+    UIButton *button = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    button.backgroundColor = [UIColor yellowColor];
+    [button setTitle:@"工厂模式" forState:(UIControlStateNormal)];
+    [button setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+    [button addTarget:self action:@selector(pushFactoryModelVC) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.view addSubview:button];
+    
     [_text_label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.view.mas_centerX);
         make.center.mas_equalTo(self.view.mas_centerY).offset(-200);
@@ -181,6 +187,13 @@
     [btn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.mas_equalTo(self.view.mas_centerX);
         make.center.mas_equalTo(self.view.mas_centerY).offset(150);
+        make.width.mas_equalTo(@200);
+        make.height.mas_equalTo(@30);
+    }];
+    
+    [button mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(self.view.mas_centerX);
+        make.center.mas_equalTo(self.view.mas_centerY).offset(200);
         make.width.mas_equalTo(@200);
         make.height.mas_equalTo(@30);
     }];
@@ -272,6 +285,14 @@
     }
     
     [self.navigationController pushViewController:secVC animated:YES];
+}
+
+/**
+ *  跳转工厂模式
+ */
+- (void)pushFactoryModelVC {
+    MXRootExampleVC *rootVC = [[MXRootExampleVC alloc] init];
+    [self.navigationController pushViewController:rootVC animated:YES];
 }
 
 - (void)sendMessagewithString:(NSString *)newString {
