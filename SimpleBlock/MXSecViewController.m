@@ -73,6 +73,11 @@
 }
 
 - (void)PopAction {
+    
+    if ([_textField.text isEqualToString:@"____mx"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"showChangeenvironmentButton" object:nil];
+    }
+    
     int radomNo = arc4random()%255;
 //    self.text_block(self.textField.text);
 //    self.color_block(kColorWithRGB(radomNo, radomNo, radomNo));

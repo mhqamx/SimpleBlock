@@ -12,6 +12,7 @@
 		05877E181CC6198A002278FB /* MXModelExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 05877E121CC6198A002278FB /* MXModelExample.m */; };
 		05877E191CC6198A002278FB /* MXRootExampleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 05877E141CC6198A002278FB /* MXRootExampleVC.m */; };
 		05877E1A1CC6198A002278FB /* MXTextExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 05877E161CC6198A002278FB /* MXTextExample.m */; };
+		05877E1D1CC62964002278FB /* MXWebVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 05877E1C1CC62964002278FB /* MXWebVC.m */; };
 		05DA0B861CC4A356007118E0 /* MXADViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 05DA0B851CC4A356007118E0 /* MXADViewController.m */; };
 		05EC1ECB1CAE0C1C00EAAF3A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EC1ECA1CAE0C1C00EAAF3A /* main.m */; };
 		05EC1ECE1CAE0C1C00EAAF3A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 05EC1ECD1CAE0C1C00EAAF3A /* AppDelegate.m */; };
@@ -52,6 +53,8 @@
 		05877E141CC6198A002278FB /* MXRootExampleVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXRootExampleVC.m; sourceTree = "<group>"; };
 		05877E151CC6198A002278FB /* MXTextExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXTextExample.h; sourceTree = "<group>"; };
 		05877E161CC6198A002278FB /* MXTextExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXTextExample.m; sourceTree = "<group>"; };
+		05877E1B1CC62964002278FB /* MXWebVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXWebVC.h; sourceTree = "<group>"; };
+		05877E1C1CC62964002278FB /* MXWebVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXWebVC.m; sourceTree = "<group>"; };
 		05AAD3701CBE5D91003C2E55 /* MXKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXKit.h; sourceTree = "<group>"; };
 		05DA0B841CC4A356007118E0 /* MXADViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXADViewController.h; sourceTree = "<group>"; };
 		05DA0B851CC4A356007118E0 /* MXADViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXADViewController.m; sourceTree = "<group>"; };
@@ -163,6 +166,8 @@
 				05EC1EFD1CAE0C3C00EAAF3A /* MXMainViewController.m */,
 				05EC1EFF1CAE0C4400EAAF3A /* MXSecViewController.h */,
 				05EC1F001CAE0C4400EAAF3A /* MXSecViewController.m */,
+				05877E1B1CC62964002278FB /* MXWebVC.h */,
+				05877E1C1CC62964002278FB /* MXWebVC.m */,
 				05EC1ED21CAE0C1C00EAAF3A /* Main.storyboard */,
 				05EC1ED51CAE0C1C00EAAF3A /* Assets.xcassets */,
 				05EC1ED71CAE0C1C00EAAF3A /* LaunchScreen.storyboard */,
@@ -402,6 +407,7 @@
 				05877E1A1CC6198A002278FB /* MXTextExample.m in Sources */,
 				05EC1ECE1CAE0C1C00EAAF3A /* AppDelegate.m in Sources */,
 				05877E191CC6198A002278FB /* MXRootExampleVC.m in Sources */,
+				05877E1D1CC62964002278FB /* MXWebVC.m in Sources */,
 				05EC1EFE1CAE0C3C00EAAF3A /* MXMainViewController.m in Sources */,
 				05EC1ECB1CAE0C1C00EAAF3A /* main.m in Sources */,
 				05EC1F011CAE0C4400EAAF3A /* MXSecViewController.m in Sources */,
@@ -549,6 +555,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SimpleBlock/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.swift.phot.SimpleBlock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -561,6 +568,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = SimpleBlock/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.swift.phot.SimpleBlock;
 				PRODUCT_NAME = "$(TARGET_NAME)";

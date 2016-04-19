@@ -20,7 +20,8 @@
 #import <Masonry.h>
 #import "MXADViewController.h"
 #import "MXRootExampleVC.h"
-@interface MXMainViewController ()<sendMessageDelegate, UIScrollViewDelegate>
+#import "MXWebVC.h"
+@interface MXMainViewController ()<sendMessageDelegate, UIScrollViewDelegate, UIActionSheetDelegate>
 /**
  *  接收颜色的label
  */
@@ -50,6 +51,17 @@
  *  显示广告页的Window
  */
 @property (nonatomic, strong) UIWindow  *ADwindow;
+
+/**
+ *  切换网络环境的button
+ */
+@property (nonatomic, strong) UIButton  *environmentBtn;
+
+/**
+ *  主域
+ */
+@property (nonatomic, copy) NSString  *mainString;
+
 
 @end
 
@@ -108,14 +120,16 @@
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.view.backgroundColor = [UIColor whiteColor];
-    
+    self.mainString = @"";
+    self.title = self.mainString;
     /**
      *  添加观察者
      *
      *  @param disMissWindow 将window制空的方法
      */
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disMissWindow) name:@"WindowDismiss" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disMissWindow) name:UIWindowDidBecomeHiddenNotification object:_ADwindow];;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(disMissWindow) name:UIWindowDidBecomeHiddenNotification object:_ADwindow];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(showButton) name:@"showChangeenvironmentButton" object:nil];;
 }
 
 - (void)viewDidLoad {
@@ -150,6 +164,16 @@
     [self.view addSubview:self.text_label];
     [self.view addSubview:self.color_label];
     [self.view addSubview:self.imageView];
+    
+    _environmentBtn = [UIButton buttonWithType:(UIButtonTypeCustom)];
+    [_environmentBtn setTitleColor:[UIColor blackColor] forState:(UIControlStateNormal)];
+    _environmentBtn.backgroundColor = [UIColor greenColor];
+    [_environmentBtn setTitle:@"切换环境" forState:(UIControlStateNormal)];
+    _environmentBtn.hidden = YES;
+    [_environmentBtn addTarget:self action:@selector(changeEnvironmentAction) forControlEvents:(UIControlEventTouchUpInside)];
+    [self.view addSubview:self.environmentBtn];
+
+    
     UIButton *btn = [UIButton buttonWithType:(UIButtonTypeSystem)];
     btn.backgroundColor = [UIColor redColor];
     [btn setTitle:@"Push" forState:(UIControlStateNormal)];
@@ -197,6 +221,15 @@
         make.width.mas_equalTo(@200);
         make.height.mas_equalTo(@30);
     }];
+    
+    [_environmentBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(self.view.mas_centerX);
+        make.center.mas_equalTo(self.view.mas_centerY).offset(250);
+        make.width.mas_equalTo(@200);
+        make.height.mas_equalTo(@30);
+    }];
+
+    
 }
 
 - (void)configScrollView {
@@ -295,8 +328,39 @@
     [self.navigationController pushViewController:rootVC animated:YES];
 }
 
+/**
+ *  切换Domain的实现方法
+ */
+- (void)changeEnvironmentAction {
+    NSLog(@"--- %s", __func__);
+    UIActionSheet *alter = [[UIActionSheet alloc] initWithTitle:@"切换Domain地址" delegate:self cancelButtonTitle:@"cancle" destructiveButtonTitle:nil otherButtonTitles:@"正式环境", @"测试环境", nil];
+    [alter showInView:self.view];
+}
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
+    MXWebVC *webVC = [[MXWebVC alloc] init];
+    if (buttonIndex == 0) {
+        self.mainString = @"http://www.baidu.com";
+        NSLog(@"======= %@", self.mainString);
+        webVC.request = self.mainString;
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"postUrl" object:self.mainString];
+        [self.navigationController pushViewController:webVC animated:YES];
+    } else if (buttonIndex == 1) {
+        self.mainString = @"http://www.163.com";
+        NSLog(@"======= %@", self.mainString);
+        webVC.request = self.mainString;
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"postUrl" object:self.mainString];
+        [self.navigationController pushViewController:webVC animated:YES];
+    }
+    
+}
+
+- (void)showButton {
+    _environmentBtn.hidden = NO;
+}
+
 - (void)sendMessagewithString:(NSString *)newString {
-    self.title = newString;
+//    self.title = newString;
 }
 
 - (void)test {
