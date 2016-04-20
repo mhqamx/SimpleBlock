@@ -26,6 +26,7 @@
     return _mainTableView;
 }
 
+/*
 - (NSMutableArray *)titleArray {
     if (!_titleArray) {
         _titleArray = [NSMutableArray array];
@@ -39,11 +40,18 @@
     }
     return _classesArray;
 }
-
+*/
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     [self.view addSubview:self.mainTableView];
+    
+    /**
+     *  数组创建另一种方式 懒加载之外的
+     */
+    self.titleArray = @[].mutableCopy;
+    self.classesArray = @[].mutableCopy;
+    
     
     [self addTitle:@"Model" Class:@"MXModelExample"];
     [self addTitle:@"Text" Class:@"MXTextExample"];
