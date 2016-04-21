@@ -17,6 +17,8 @@
 
 @implementation MXRootExampleVC
 
+#pragma mark - Lazy initlization
+
 - (UITableView *)mainTableView {
     if (!_mainTableView) {
         _mainTableView = [[UITableView alloc] initWithFrame:self.view.bounds style:(UITableViewStylePlain)];
