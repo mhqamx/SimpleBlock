@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		051F6C0C1CAE41BF0053A3C9 /* 57.png in Resources */ = {isa = PBXBuildFile; fileRef = 051F6C0B1CAE41BF0053A3C9 /* 57.png */; };
+		055FBCE51CCA02D30019FAB8 /* libstaticLib.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 055FBCE41CCA02D30019FAB8 /* libstaticLib.a */; };
 		05877E171CC6198A002278FB /* MXImageExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 05877E101CC6198A002278FB /* MXImageExample.m */; };
 		05877E181CC6198A002278FB /* MXModelExample.m in Sources */ = {isa = PBXBuildFile; fileRef = 05877E121CC6198A002278FB /* MXModelExample.m */; };
 		05877E191CC6198A002278FB /* MXRootExampleVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 05877E141CC6198A002278FB /* MXRootExampleVC.m */; };
@@ -45,6 +46,7 @@
 
 /* Begin PBXFileReference section */
 		051F6C0B1CAE41BF0053A3C9 /* 57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 57.png; sourceTree = "<group>"; };
+		055FBCE41CCA02D30019FAB8 /* libstaticLib.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libstaticLib.a; sourceTree = "<group>"; };
 		05877E0F1CC6198A002278FB /* MXImageExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXImageExample.h; sourceTree = "<group>"; };
 		05877E101CC6198A002278FB /* MXImageExample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MXImageExample.m; sourceTree = "<group>"; };
 		05877E111CC6198A002278FB /* MXModelExample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MXModelExample.h; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E25415C89D4A1D7927B38ED /* libPods.a in Frameworks */,
+				055FBCE51CCA02D30019FAB8 /* libstaticLib.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -125,6 +128,7 @@
 		05DA0B831CC4A34A007118E0 /* ADController */ = {
 			isa = PBXGroup;
 			children = (
+				055FBCE41CCA02D30019FAB8 /* libstaticLib.a */,
 				05DA0B841CC4A356007118E0 /* MXADViewController.h */,
 				05DA0B851CC4A356007118E0 /* MXADViewController.m */,
 			);
@@ -557,6 +561,10 @@
 				INFOPLIST_FILE = SimpleBlock/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SimpleBlock/ADController",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.swift.phot.SimpleBlock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -570,6 +578,10 @@
 				INFOPLIST_FILE = SimpleBlock/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/SimpleBlock/ADController",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.swift.phot.SimpleBlock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
