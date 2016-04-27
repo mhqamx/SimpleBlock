@@ -391,4 +391,9 @@
 
 }
 
+// 实现代理协议方法
+- (void)callBackMethod {
+    
+}
+
 @end
