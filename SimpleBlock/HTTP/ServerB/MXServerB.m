@@ -10,7 +10,9 @@
 
 @implementation MXServerB
 @synthesize developApiBaseUrl = _developApiBaseUrl, testApiBaseUrl = _testApiBaseUrl, prereleaseApiBaseUrl = _prereleaseApiBaseUrl, releaseApiBaseUrl = _releaseApiBaseUrl, hotfixApiBaseUrl = _hotfixApiBaseUrl;
-
+/**
+ *  开发环境baseUrl
+ */
 -(NSString *)developApiBaseUrl {
     if (!_developApiBaseUrl) {
         _developApiBaseUrl = @"http://www.baidu.com";
