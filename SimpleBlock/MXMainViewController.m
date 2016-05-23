@@ -355,6 +355,9 @@
     
 }
 
+/**
+ *  切换环境按钮懒加载
+ */
 - (void)showButton {
     _environmentBtn.hidden = NO;
 }
